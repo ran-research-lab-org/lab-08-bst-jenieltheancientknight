@@ -277,6 +277,18 @@ private:
     else
       return new BinaryNode{t->element, clone(t->left), clone(t->right)};
   }
+
+  Comparable BFS(BinaryNode)
+  {
+    root
+  }
+
+  #include "BinarySearchTree.hpp"
+
+  int main() {
+    BinarySearchTree<int> binaryTree; // <-- define an instance named binaryTree
+    return 0;
+  }
 };
 
 #endif
