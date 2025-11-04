@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <queue>
 using namespace std;
 
 template <typename T> string toStr(const T &value) {
@@ -112,8 +113,42 @@ public:
   void remove(const Comparable &x) { remove(x, root); }
 
   string BFT() const {
-    string st;
-    return st;
+
+    //AMEN THIS TOOK ME A WHILE BRO
+
+    std::queue<BinaryNode*> q;
+
+    q.push(root);
+
+    string result = "[";
+
+    while(!q.empty())
+    {
+      int size = q.size();
+      result += "[";
+
+      for(int i = 0; i < size; i++)
+      {
+        BinaryNode* t = q.front();
+         q.pop();
+        result += toStr(t->element);
+
+        if(i != size - 1)
+          result += ",";
+
+        if(t->left != nullptr)
+        q.push(t->left);
+        if(t->right != nullptr)
+        q.push(t->right);
+      }
+      result += "],";
+    }
+
+    result.pop_back();
+    result += ",";
+
+    return result;
+
   }
 
 private:
@@ -276,18 +311,6 @@ private:
       return nullptr;
     else
       return new BinaryNode{t->element, clone(t->left), clone(t->right)};
-  }
-
-  Comparable BFS(BinaryNode)
-  {
-    root
-  }
-
-  #include "BinarySearchTree.hpp"
-
-  int main() {
-    BinarySearchTree<int> binaryTree; // <-- define an instance named binaryTree
-    return 0;
   }
 };
 
