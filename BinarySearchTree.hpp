@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <queue>
 using namespace std;
 
 template <typename T> string toStr(const T &value) {
@@ -111,9 +112,43 @@ public:
   // Remove x from the tree. Nothing is done if x is not found.
   void remove(const Comparable &x) { remove(x, root); }
 
-  string BFT() const {
-    string st;
-    return st;
+  string BFT() const { // Breadth-first traversal as a string
+
+    //AMEN THIS TOOK ME A WHILE BRO
+
+    std::queue<BinaryNode*> q; // queue to hold nodes level by level
+
+    q.push(root); // start traversal from the root
+
+    string result = "["; // result string starts with an opening bracket
+
+    while(!q.empty()) 
+    {
+      int size = q.size(); // number of nodes at the current level
+      result += "["; 
+
+      for(int i = 0; i < size; i++) // iterate over nodes in this level
+      {
+        BinaryNode* t = q.front(); 
+        q.pop(); // remove it from the queue
+        result += toStr(t->element); // append the node value
+
+        if(i != size - 1)
+          result += ","; // comma between nodes on the same level
+
+        if(t->left != nullptr)
+          q.push(t->left); 
+        if(t->right != nullptr)
+          q.push(t->right); 
+      }
+      result += "],"; // close this level and add a separator
+    }
+
+    result.pop_back(); // removing the extra comma that appears at the end
+    result += "]"; // close main bracket thingy
+
+    return result; // return the constructed string
+
   }
 
 private:
